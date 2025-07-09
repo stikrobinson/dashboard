@@ -3,10 +3,11 @@ import './App.css'
 import { Grid } from '@mui/material';
 import SelectorUI from './assets/selectorUI';
 import DataFetcher from './functions/DataFetcher';
+import TableUI from './components/TableUI';
+import ChartUI from './components/ChartUI';
 
 function App() {
   const dataFetcherOutput = DataFetcher();
-  console.log(dataFetcherOutput.data);
 
   return (
       <Grid container spacing={5} justifyContent="center" alignItems="center">
@@ -21,26 +22,9 @@ function App() {
 
          {/* Indicadores */}
          <Grid size={{ xs: 12, md: 9 }}>Elemento: Indicadores</Grid>
-         <Grid container size={{ xs: 12, md: 9 }} >
+        
 
-                 <Grid size={{ xs: 12, md: 3 }}>
-                     <IndicatorUI title='Temperatura (2m)' description='XX°C' />
-                 </Grid>
-
-                 <Grid size={{ xs: 12, md: 3 }}>
-                     <IndicatorUI title='Temperatura aparente' description='YY°C' />
-                 </Grid>
-
-                 <Grid size={{ xs: 12, md: 3 }}>
-                     <IndicatorUI title='Velocidad del viento' description='ZZkm/h' />
-                 </Grid>
-
-                 <Grid size={{ xs: 12, md: 3 }}>
-                     <IndicatorUI title='Humedad relativa' description='NN%' />
-                 </Grid>
-          </Grid>
-
-                           {/* Renderizado condicional de los datos obtenidos */}
+                {/* Renderizado condicional de los datos obtenidos */}
 
                  {dataFetcherOutput.loading && <p>Cargando datos...</p>}
                  {dataFetcherOutput.error && <p>Error: {dataFetcherOutput.error}</p>}
@@ -77,11 +61,16 @@ function App() {
                  )}
 
          {/* Gráfico */}
-         <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block"} }}>Elemento: Gráfico</Grid>
-
+         <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block"} }}>
+            <ChartUI />
+         </Grid>
+                        
          {/* Tabla */}
-         <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>Elemento: Tabla</Grid>
-
+         <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
+            <TableUI />
+         </Grid>
+    
+            {/* Información de la ubicación */}
          {/* Información adicional */}
          <Grid size={{ xs: 12, md: 12 }}>Elemento: Información adicional</Grid>
         <SelectorUI/>
