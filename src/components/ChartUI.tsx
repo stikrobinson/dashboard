@@ -11,7 +11,7 @@ export default function ChartUI() {
    return (
       <>
          <Typography variant="h5" component="div">
-            Chart arrLabels vs arrValues1 & arrValues2
+            Gráfico de Horas vs Temperatura y Viento
          </Typography>
          <LineChart
             height={300}

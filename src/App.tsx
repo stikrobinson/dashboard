@@ -18,7 +18,9 @@ function App() {
          <Grid size={{ xs: 12, md: 12}}>Elemento: Alertas</Grid>
 
          {/* Selector */}
-          <Grid size={{ xs: 12, md: 3  }}>Elemento: Selector</Grid>
+          <Grid size={{ xs: 12, md: 3  }}>
+                <SelectorUI/>
+          </Grid>
 
          {/* Indicadores */}
          <Grid size={{ xs: 12, md: 9 }}>Elemento: Indicadores</Grid>
@@ -73,7 +75,6 @@ function App() {
             {/* Información de la ubicación */}
          {/* Información adicional */}
          <Grid size={{ xs: 12, md: 12 }}>Elemento: Información adicional</Grid>
-        <SelectorUI/>
 
       </Grid>
 
