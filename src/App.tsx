@@ -1,98 +1,98 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import IndicatorUI from './components/IndicatorUI';
 import './App.css'
+import { Grid } from '@mui/material';
+import SelectorUI from './assets/selectorUI';
+import DataFetcher from './functions/DataFetcher';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dataFetcherOutput = DataFetcher();
+  console.log(dataFetcherOutput.data);
 
   return (
-    <>
-      
-      <div>
-        <h1>Bienvenido al Dashboard</h1>
-      </div>
       <Grid container spacing={5} justifyContent="center" alignItems="center">
-      <Grid>
-
          {/* Encabezado */}
-         <Grid item xs={12} md={12}>
-         {/* Encabezado */}
-         </Grid>
+         <Grid size={{ xs: 12, md: 12 }}>Elemento: Encabezado</Grid>
 
          {/* Alertas */}
-         <Grid item xs={12} md={12}>
-         {/* Alertas */}
-         </Grid>
+         <Grid size={{ xs: 12, md: 12}}>Elemento: Alertas</Grid>
 
-         {/* Selector e Indicadores */}
-         <Grid item container xs={12} md={12} spacing={2}>
-            <Grid item xs={12} md={3}>
-              {/* Selector */}
-            </Grid>
-            <Grid item xs={12} md={9}>
-              {/* Indicadores */}
-            </Grid>
-         </Grid>
+         {/* Selector */}
+          <Grid size={{ xs: 12, md: 3  }}>Elemento: Selector</Grid>
 
-         {/* Gráfico y Tabla */}
-         <Grid item container xs={12} md={12} spacing={2}>
-            <Grid
-              item
-              xs={12}
-              md={6}
-              sx={{
-                display: { xs: 'none', md: 'block' }
-              }}
-            >
-              {/* Gráfico */}
-              <Box>Gráfica</Box>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={6}
-              sx={{
-                display: { xs: 'none', md: 'block' }
-              }}
-            >
-              {/* Tabla */}
-              <Box>Tabla</Box>
-            </Grid>
-         </Grid>
+         {/* Indicadores */}
+         <Grid size={{ xs: 12, md: 9 }}>Elemento: Indicadores</Grid>
+         <Grid container size={{ xs: 12, md: 9 }} >
+
+                 <Grid size={{ xs: 12, md: 3 }}>
+                     <IndicatorUI title='Temperatura (2m)' description='XX°C' />
+                 </Grid>
+
+                 <Grid size={{ xs: 12, md: 3 }}>
+                     <IndicatorUI title='Temperatura aparente' description='YY°C' />
+                 </Grid>
+
+                 <Grid size={{ xs: 12, md: 3 }}>
+                     <IndicatorUI title='Velocidad del viento' description='ZZkm/h' />
+                 </Grid>
+
+                 <Grid size={{ xs: 12, md: 3 }}>
+                     <IndicatorUI title='Humedad relativa' description='NN%' />
+                 </Grid>
+          </Grid>
+
+                           {/* Renderizado condicional de los datos obtenidos */}
+
+                 {dataFetcherOutput.loading && <p>Cargando datos...</p>}
+                 {dataFetcherOutput.error && <p>Error: {dataFetcherOutput.error}</p>}
+                 {dataFetcherOutput.data && (
+                 <>
+
+                     {/* Indicadores con datos obtenidos */}
+
+                     <Grid size={{ xs: 12, md: 3 }} >
+                         <IndicatorUI
+                             title='Temperatura (2m)'
+                             description={dataFetcherOutput.data.current.temperature_2m + " " + dataFetcherOutput.data.current_units.temperature_2m} />
+                     </Grid>
+
+                     <Grid size={{ xs: 12, md: 3 }}>
+                         <IndicatorUI
+                             title='Temperatura aparente'
+                             description={dataFetcherOutput.data.current.apparent_temperature + " " + dataFetcherOutput.data.current_units.apparent_temperature} />
+                     </Grid>
+
+                     <Grid size={{ xs: 12, md: 3 }}>
+                         <IndicatorUI
+                             title='Velocidad del viento'
+                             description={dataFetcherOutput.data.current.wind_speed_10m + " " + dataFetcherOutput.data.current_units.wind_speed_10m} />
+                     </Grid>
+
+                     <Grid size={{ xs: 12, md: 3 }}>
+                         <IndicatorUI
+                             title='Humedad relativa'
+                             description={dataFetcherOutput.data.current.relative_humidity_2m + " " + dataFetcherOutput.data.current_units.relative_humidity_2m} />
+                     </Grid>
+
+                 </>
+                 )}
+
+         {/* Gráfico */}
+         <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block"} }}>Elemento: Gráfico</Grid>
+
+         {/* Tabla */}
+         <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>Elemento: Tabla</Grid>
 
          {/* Información adicional */}
-         <Grid item xs={12} md={12}>
-         {/* Información adicional */}
-         </Grid>
+         <Grid size={{ xs: 12, md: 12 }}>Elemento: Información adicional</Grid>
+        <SelectorUI/>
 
       </Grid>
-      </Grid>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
 
-    </>
+      
+
+
   )
 }
 
-export default App
+
+export default App;
