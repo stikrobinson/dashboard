@@ -1,3 +1,4 @@
+import type {DataFetcherOutput} from '../functions/DataFetcher';
 export interface FetcherProps { 
-    cityInput: string;
+    output: DataFetcherOutput;
 }

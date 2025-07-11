@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
-import DataFetcher from '../functions/DataFetcher';
 import type { FetcherProps } from '../types/FetchProp';
 
 
@@ -22,12 +21,12 @@ const columns: GridColDef[] = [
    },
    {
       field: 'temperatura',
-      headerName: 'Temperatura',
+      headerName: 'Temperatura (2m) [°C]',
       width: 150,
    },
    {
       field: 'viento',
-      headerName: 'Viento',
+      headerName: 'Viento (10m) [km/h]',
       width: 150,
    },
    {
@@ -37,16 +36,14 @@ const columns: GridColDef[] = [
       sortable: false,
       hideable: false,
       width: 160,
-      valueGetter: (_, row) => `${row.hora || ''} ${row.temperatura || ''} ${row.viento || ''}`,
+      valueGetter: (_, row) => `${row.hora || ''} ${row.temperatura + " °C"|| ''} ${row.viento +" km/h" || ''}`,
    },
 ];
 
-export default function TableUI({cityInput}: FetcherProps) {
-   const dataFetcherOutput = DataFetcher(cityInput);
-    
-   const temperaturas = dataFetcherOutput.data?.hourly.temperature_2m || [];
-   const viento = dataFetcherOutput.data?.hourly.wind_speed_10m || [];
-   const horas = dataFetcherOutput.data?.hourly.time || [];
+export default function TableUI({output}: FetcherProps) {    
+   const temperaturas = output.data?.hourly.temperature_2m || [];
+   const viento = output.data?.hourly.wind_speed_10m || [];
+   const horas = output.data?.hourly.time || [];
    const rows = combineArrays(horas, temperaturas, viento);
 
    return (
