@@ -12,12 +12,14 @@ import { useState } from 'react';
 function App() {
   // Variable de estado para la ciudad seleccionada
   const [cityInput, setCityInput] = useState<string>("guayaquil");
-  const dataFetcherOutput = DataFetcher(cityInput);
+  //const = DataFetcher(cityInput);
+    const { data, loading, error } = DataFetcher(cityInput);
 
   return (
       <Grid container spacing={5} justifyContent="center" alignItems="center">
          {/* Encabezado */}
          <Grid size={{ xs: 12, md: 12 }}><HeaderUI/></Grid>
+         
 
          {/* Alertas */}
          <Grid size={{ xs: 12, md: 12}} container justifyContent="right" alignItems="center">
@@ -35,9 +37,9 @@ function App() {
 
                 {/* Renderizado condicional de los datos obtenidos */}
 
-                 {dataFetcherOutput.loading && <p>Cargando datos...</p>}
-                 {dataFetcherOutput.error && <p>Error: {dataFetcherOutput.error}</p>}
-                 {dataFetcherOutput.data && (
+                 {loading && <p>Cargando datos...</p>}
+                 {error && <p>Error: {error}</p>}
+                 {data && (
                  <>
 
                      {/* Indicadores con datos obtenidos */}
@@ -45,25 +47,25 @@ function App() {
                      <Grid size={{ xs: 12, md: 3 }} >
                          <IndicatorUI
                              title='Temperatura (2m)'
-                             description={dataFetcherOutput.data.current.temperature_2m + " " + dataFetcherOutput.data.current_units.temperature_2m} />
+                             description={data.current.temperature_2m + " " + data.current_units.temperature_2m} />
                      </Grid>
 
                      <Grid size={{ xs: 12, md: 3 }}>
                          <IndicatorUI
                              title='Temperatura aparente'
-                             description={dataFetcherOutput.data.current.apparent_temperature + " " + dataFetcherOutput.data.current_units.apparent_temperature} />
+                             description={data.current.apparent_temperature + " " + data.current_units.apparent_temperature} />
                      </Grid>
 
                      <Grid size={{ xs: 12, md: 3 }}>
                          <IndicatorUI
                              title='Velocidad del viento'
-                             description={dataFetcherOutput.data.current.wind_speed_10m + " " + dataFetcherOutput.data.current_units.wind_speed_10m} />
+                             description={data.current.wind_speed_10m + " " + data.current_units.wind_speed_10m} />
                      </Grid>
 
                      <Grid size={{ xs: 12, md: 3 }}>
                          <IndicatorUI
                              title='Humedad relativa'
-                             description={dataFetcherOutput.data.current.relative_humidity_2m + " " + dataFetcherOutput.data.current_units.relative_humidity_2m} />
+                             description={data.current.relative_humidity_2m + " " + data.current_units.relative_humidity_2m} />
                      </Grid>
 
                  </>
