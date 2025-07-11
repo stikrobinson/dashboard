@@ -27,13 +27,6 @@ export default function DataFetcher(cityInput: string) : DataFetcherOutput {
 
     useEffect(() => {
 
-        if (!cityInput || !ciudades[cityInput]) {
-            setData(null);
-            setError('Ciudad no válida o no seleccionada');
-            setLoading(false);
-            return;
-        }
-
         const { latitude, longitude } = ciudades[cityInput];
 
         // Reemplace con su URL de la API de Open-Meteo obtenida en actividades previas

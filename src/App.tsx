@@ -37,7 +37,7 @@ function App() {
                 {/* Renderizado condicional de los datos obtenidos */}
 
                  {dataFetcherOutput.loading && <p>Cargando datos...</p>}
-                 {dataFetcherOutput.error && <p>Error: {error}</p>}
+                 {dataFetcherOutput.error && <p>Error: {dataFetcherOutput.error}</p>}
                  {dataFetcherOutput.data && (
                  <>
 
