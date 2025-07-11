@@ -3,10 +3,9 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { type SelectorUIProps } from '../types/SelectorProp'; 
 
-export default function SelectorUI() {
-  // Variable de estado para la ciudad seleccionada
-  const [cityInput, setCityInput] = useState<string>("");
+export default function SelectorUI({cityInput, setCityInput}: SelectorUIProps) {
 
   // Función flecha para manejar el cambio
   const handleChange = (event: SelectChangeEvent<string>) => {
@@ -15,7 +14,7 @@ export default function SelectorUI() {
 
   // Función para capitalizar la primera letra
   const capitalize = (text: string) =>
-    text.charAt(0).toUpperCase() + text.slice(1);
+    text.charAt(0).toUpperCase() + text.slice(1); 
 
   return (
     <FormControl fullWidth>

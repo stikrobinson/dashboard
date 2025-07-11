@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import DataFetcher from '../functions/DataFetcher';
+import type { FetcherProps } from '../types/FetchProp';
+
 
 function combineArrays(arrLabels: Array<string>, arrValues1: Array<number>, arrValues2: Array<number>) {
    return arrLabels.map((label, index) => ({
@@ -39,8 +41,8 @@ const columns: GridColDef[] = [
    },
 ];
 
-export default function TableUI() {
-   const dataFetcherOutput = DataFetcher();
+export default function TableUI({cityInput}: FetcherProps) {
+   const dataFetcherOutput = DataFetcher(cityInput);
     
    const temperaturas = dataFetcherOutput.data?.hourly.temperature_2m || [];
    const viento = dataFetcherOutput.data?.hourly.wind_speed_10m || [];

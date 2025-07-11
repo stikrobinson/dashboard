@@ -1,9 +1,11 @@
 import { LineChart } from '@mui/x-charts/LineChart';
 import Typography from '@mui/material/Typography';
 import DataFetcher from '../functions/DataFetcher';
+import type { FetcherProps } from '../types/FetchProp';
 
-export default function ChartUI() {
-   const dataFetcherOutput = DataFetcher();
+
+export default function ChartUI({cityInput}: FetcherProps) {
+   const dataFetcherOutput = DataFetcher(cityInput);
 
    const temperaturas = dataFetcherOutput.data?.hourly.temperature_2m || [];
    const viento = dataFetcherOutput.data?.hourly.wind_speed_10m || [];
