@@ -26,7 +26,14 @@ export default function DataFetcher(cityInput: string) : DataFetcherOutput {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        let tiempoPasado: string = localStorage.getItem(`${cityInput}_timestamp`)??"0";
+        let segundos: number = parseInt(tiempoPasado);
 
+        if( Date.now() - segundos <= 3600000) {
+            setData(JSON.parse(localStorage.getItem(cityInput)!));
+            setLoading(false);
+            setError(null);
+        }else{
         const { latitude, longitude } = ciudades[cityInput];
 
         // Reemplace con su URL de la API de Open-Meteo obtenida en actividades previas
@@ -43,10 +50,13 @@ export default function DataFetcher(cityInput: string) : DataFetcherOutput {
                 }
 
                 const result: OpenMeteoResponse = await response.json();
+
+                const dataToString = JSON.stringify(result);
+                localStorage.setItem(cityInput, dataToString);
+                localStorage.setItem(`${cityInput}_timestamp`, Date.now().toString());
+
                 setData(result);
-
             } catch (err: any) {
-
                 if (err instanceof Error) {
                     setError(err.message);
                 } else {
@@ -59,8 +69,7 @@ export default function DataFetcher(cityInput: string) : DataFetcherOutput {
         };
         fetchData();
 
-        
-
+    }
     }, [cityInput]); // El array vacío asegura que el efecto se ejecute solo una vez después del primer renderizado
 
     return { data, loading, error };

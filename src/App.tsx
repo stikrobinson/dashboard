@@ -9,6 +9,7 @@ import HeaderUI from './components/HeaderUI';
 import AlertUI from './components/AlertUI';
 import { useState } from 'react';
 
+
 function App() {
   // Variable de estado para la ciudad seleccionada
   const [cityInput, setCityInput] = useState<string>("guayaquil");
