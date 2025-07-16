@@ -57,7 +57,13 @@ export default function DataFetcher(cityInput: string) : DataFetcherOutput {
 
                 setData(result);
             } catch (err: any) {
-                if (err instanceof Error) {
+
+                const almacenado = localStorage.getItem(cityInput);
+                if(almacenado){
+                    const stringToData = JSON.parse(almacenado);
+                    setData(stringToData);
+
+                }else if (err instanceof Error) {
                     setError(err.message);
                 } else {
                     setError("Ocurrió un error desconocido al obtener los datos.");
