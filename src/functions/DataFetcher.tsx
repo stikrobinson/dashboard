@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { OpenMeteoResponse } from '../types/DashboardTypes';4
+import type { OpenMeteoResponse } from '../types/DashboardTypes';
 
 export interface DataFetcherOutput {
     data: OpenMeteoResponse | null;

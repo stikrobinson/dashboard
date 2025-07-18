@@ -7,13 +7,15 @@ import TableUI from './components/TableUI';
 import ChartUI from './components/ChartUI';
 import HeaderUI from './components/HeaderUI';
 import AlertUI from './components/AlertUI';
+import RecomendacionesUI from "./components/RecomendacionesUI";
 import { useState } from 'react';
-
+import getCohereResponse from "./functions/CohereAssistant";
 
 function App() {
   // Variable de estado para la ciudad seleccionada
   const [cityInput, setCityInput] = useState<string>("guayaquil");
   const dataFetcherOutput = DataFetcher(cityInput);
+  const respuesta: string = getCohereResponse(cityInput, dataFetcherOutput);
 
   return (
       <Grid container spacing={5} justifyContent="center" alignItems="center">
@@ -86,7 +88,7 @@ function App() {
     
      {/* Información de la ubicación */}
          {/* Información adicional */}
-         <Grid size={{ xs: 12, md: 12 }}>Elemento: Información adicional</Grid>
+         <Grid container size={{ xs: 12, md: 12 }}><RecomendacionesUI texto={respuesta}/></Grid>
 
       </Grid>
 
