@@ -7,7 +7,8 @@ export default function ChartUI({output}: FetcherProps) {
 
    const temperaturas = output.data?.hourly.temperature_2m || [];
    const viento = output.data?.hourly.wind_speed_10m || [];
-   const horas = output.data?.hourly.time || [];
+   const horas = output.data?.hourly.time.map( elemento => elemento.split("T")[1]) || [];
+
    return (
       <>
          <Typography variant="h5" component="div">

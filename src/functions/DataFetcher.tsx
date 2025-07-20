@@ -76,7 +76,7 @@ export default function DataFetcher(cityInput: string) : DataFetcherOutput {
         fetchData();
 
     }
-    }, [cityInput]); // El array vacío asegura que el efecto se ejecute solo una vez después del primer renderizado
-
+    }, [cityInput]); 
+    
     return { data, loading, error };
 }

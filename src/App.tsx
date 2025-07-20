@@ -10,12 +10,15 @@ import AlertUI from './components/AlertUI';
 import RecomendacionesUI from "./components/RecomendacionesUI";
 import { useState } from 'react';
 import getCohereResponse from "./functions/CohereAssistant";
+import Typography from '@mui/material/Typography';
+import LoadingUI from "./components/LoadingUI";
+import convertirFecha from "./functions/convertirFecha";
 
 function App() {
   // Variable de estado para la ciudad seleccionada
   const [cityInput, setCityInput] = useState<string>("guayaquil");
   const dataFetcherOutput = DataFetcher(cityInput);
-  const respuesta: string = getCohereResponse(cityInput, dataFetcherOutput);
+  const iaResponse = getCohereResponse(cityInput, dataFetcherOutput.data!);
 
   return (
       <Grid container spacing={5} justifyContent="center" alignItems="center">
@@ -24,8 +27,9 @@ function App() {
          
 
          {/* Alertas */}
-         <Grid size={{ xs: 12, md: 12}} container justifyContent="right" alignItems="center">
-                <AlertUI description="No se preveen lluvias"/>
+         <Grid size={{ xs: 12, md: 12}} container justifyContent="space-between" alignItems="center">
+            <p style={{fontWeight: "bold"}}>{convertirFecha(dataFetcherOutput.data?.current.time!)}</p>
+            <AlertUI description="No se preveen lluvias"/>
          </Grid>
 
          {/* Selector */}
@@ -88,8 +92,19 @@ function App() {
     
      {/* Información de la ubicación */}
          {/* Información adicional */}
-         <Grid container size={{ xs: 12, md: 12 }}><RecomendacionesUI texto={respuesta}/></Grid>
-
+         <Grid container size={{ xs: 12, md: 12 }}>
+            <Grid size={{ xs: 12, md: 12 }}>
+                <Typography variant="h4" sx={{fontWeight: 'bold'}}>
+                Recomendaciones
+                </Typography>
+            </Grid>
+                 {iaResponse.loading && <LoadingUI/>}
+                 {iaResponse.error && <p>{iaResponse.error}</p>}
+                 {(!iaResponse.loading && iaResponse.respuesta) && (
+                 <Grid container sx={{alignItems: "stretch"}}>
+                    <RecomendacionesUI texto={iaResponse.respuesta}/>
+                 </Grid>)}
+         </Grid>
       </Grid>
 
       

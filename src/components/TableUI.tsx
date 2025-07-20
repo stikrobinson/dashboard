@@ -17,17 +17,19 @@ const columns: GridColDef[] = [
    {
       field: 'hora',
       headerName: 'Hora',
-      width: 150,
+      width: 80,
    },
    {
       field: 'temperatura',
-      headerName: 'Temperatura (2m) [°C]',
+      headerName: 'Temperatura (2m)',
       width: 150,
+      valueFormatter: (value) => value + " °C"
    },
    {
       field: 'viento',
-      headerName: 'Viento (10m) [km/h]',
-      width: 150,
+      headerName: 'Viento (10m)',
+      width: 100,
+      valueFormatter: (value) => value + " km/h"
    },
    {
       field: 'resumen',
@@ -43,7 +45,7 @@ const columns: GridColDef[] = [
 export default function TableUI({output}: FetcherProps) {    
    const temperaturas = output.data?.hourly.temperature_2m || [];
    const viento = output.data?.hourly.wind_speed_10m || [];
-   const horas = output.data?.hourly.time || [];
+   const horas = output.data?.hourly.time.map( elemento => elemento.split("T")[1]) || [];
    const rows = combineArrays(horas, temperaturas, viento);
 
    return (
