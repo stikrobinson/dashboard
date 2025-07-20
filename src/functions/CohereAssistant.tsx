@@ -14,7 +14,9 @@ export default function getCohereResponse(cityInput: string, dataFetcherOutput: 
     const prompt = dataFetcherOutput !== null? `Escribe 6 recomendaciones útiles sobre para el clima de ${cityInput}, Ecuador si la temperatura es ${dataFetcherOutput!.current.temperature_2m} ${dataFetcherOutput!.current_units.temperature_2m}, con sensación térmica de ${dataFetcherOutput!.current.apparent_temperature} ${dataFetcherOutput!.current_units.apparent_temperature}, viento de ${dataFetcherOutput!.current.wind_speed_10m} ${dataFetcherOutput!.current_units.wind_speed_10m}, humedad relativa de ${dataFetcherOutput!.current.relative_humidity_2m} ${dataFetcherOutput!.current_units.relative_humidity_2m} y la la fecha y hora es ${dataFetcherOutput!.current.time}. Escribe solo la lista de recomendaciones. Usar la virgulilla (~) exclusivamente como viñeta para la lista y los dos puntos para separar el título con la descripción de la recomendación. La descripción debe empezar su primera letra con mayúscula. No menciones las estadísticas del clima dadas en el prompt.`: "";
     const getResponse = async () => {
         try{
-          if(localStorage.getItem(`${cityInput}_tips`)===null){
+          if(prompt === ""){
+            setRespuesta("");
+          }else if(localStorage.getItem(`${cityInput}_tips`)===null){
              setLoading(true)
              const response = await cohere.chat({
              model: 'command-a-03-2025',
@@ -39,6 +41,7 @@ export default function getCohereResponse(cityInput: string, dataFetcherOutput: 
         } else {
           setError("Ocurrió un error desconocido al obtener los datos.");
         }
+        setRespuesta("");
       }finally{
         setLoading(false);
       }

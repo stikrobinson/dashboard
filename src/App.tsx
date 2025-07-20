@@ -13,6 +13,8 @@ import getCohereResponse from "./functions/CohereAssistant";
 import Typography from '@mui/material/Typography';
 import LoadingUI from "./components/LoadingUI";
 import convertirFecha from "./functions/convertirFecha";
+import Alert from '@mui/material/Alert';
+
 
 function App() {
   // Variable de estado para la ciudad seleccionada
@@ -99,7 +101,7 @@ function App() {
                 </Typography>
             </Grid>
                  {iaResponse.loading && <LoadingUI/>}
-                 {iaResponse.error && <p>{iaResponse.error}</p>}
+                 {(!iaResponse.loading && iaResponse.error) && <Alert variant="standard" severity="error"> {iaResponse.error} </Alert>}
                  {(!iaResponse.loading && iaResponse.respuesta) && (
                  <Grid container sx={{alignItems: "stretch"}}>
                     <RecomendacionesUI texto={iaResponse.respuesta}/>

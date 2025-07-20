@@ -30,7 +30,8 @@ export default function DataFetcher(cityInput: string) : DataFetcherOutput {
         let segundos: number = parseInt(tiempoPasado);
 
         if( Date.now() - segundos <= 3600000) {
-            setData(JSON.parse(localStorage.getItem(cityInput)!));
+            const data: OpenMeteoResponse = JSON.parse(localStorage.getItem(cityInput)!);
+            setData(data);
             setLoading(false);
             setError(null);
         }else{
@@ -56,13 +57,13 @@ export default function DataFetcher(cityInput: string) : DataFetcherOutput {
                 localStorage.setItem(`${cityInput}_timestamp`, Date.now().toString());
 
                 setData(result);
+                localStorage.removeItem(`${cityInput}_tips`);
             } catch (err: any) {
 
                 const almacenado = localStorage.getItem(cityInput);
                 if(almacenado){
-                    const stringToData = JSON.parse(almacenado);
+                    const stringToData: OpenMeteoResponse = JSON.parse(almacenado);
                     setData(stringToData);
-
                 }else if (err instanceof Error) {
                     setError(err.message);
                 } else {
