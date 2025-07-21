@@ -38,7 +38,7 @@ export default function DataFetcher(cityInput: string) : DataFetcherOutput {
         const { latitude, longitude } = ciudades[cityInput];
 
         // Reemplace con su URL de la API de Open-Meteo obtenida en actividades previas
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,wind_speed_10m,apparent_temperature&timezone=America%2FChicago&forecast_days=1`
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,wind_speed_10m,apparent_temperature,precipitation_probability&timezone=America%2FChicago&forecast_days=1`
 
         const fetchData = async () => {
            

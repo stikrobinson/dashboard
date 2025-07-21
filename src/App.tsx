@@ -31,7 +31,7 @@ function App() {
          {/* Alertas */}
          <Grid size={{ xs: 12, md: 12}} container justifyContent="space-between" alignItems="center">
             <p style={{fontWeight: "bold"}}>{convertirFecha(dataFetcherOutput.data?.current.time!)}</p>
-            <AlertUI description="No se preveen lluvias"/>
+            {dataFetcherOutput.data?.current.precipitation_probability!>50? <Alert severity="warning">Se preveen precipitaciones</Alert> : <AlertUI description="No se preveen precipitaciones"/>}
          </Grid>
 
          {/* Selector */}
