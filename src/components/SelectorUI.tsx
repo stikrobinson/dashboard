@@ -1,4 +1,3 @@
-import { useState } from 'react'; // Importa useState
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
